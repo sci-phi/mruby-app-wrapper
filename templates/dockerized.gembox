@@ -1,0 +1,10 @@
+# 'dockerized' gembox for building per 'sciphi/mruby-base'
+#
+MRuby::GemBox.new do |conf|
+  conf.gem mgem: 'mruby-io' # File I/O
+  conf.gem mgem: 'mruby-sleep' # Sleep::sleep (Delay)
+  conf.gem mgem: 'mruby-pack' # Bit Strings (File I/O)
+  conf.gem mgem: 'mruby-md5' # Hash Digest / File Signatures
+  conf.gem mgem: 'time-strftime' # Timestamps
+  conf.gem mgem: 'tinyxml2' # XML Parsing
+end
