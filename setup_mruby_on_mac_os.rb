@@ -9,12 +9,22 @@ MRUBY_VERSION = "1.3.0"
 MRUBY_GZ_URL = "https://github.com/mruby/mruby/archive/#{MRUBY_VERSION}.tar.gz"
 MRUBY_ROOT_DIR = "/usr/local/mruby"
 
-unless File.directory?(MRUBY_ROOT_DIR)
-  FileUtils.mkdir_p(MRUBY_ROOT_DIR)
+unless File.writable?(MRUBY_ROOT_DIR)
+  puts ""
+  puts "The target folder should be owned (writable) by user"
+  puts "    '#{MRUBY_ROOT_DIR}'"
+  puts ""
+  puts "To remedy this, issue the following commands manually:"
+  puts "    'sudo mkdir -p /usr/local/mruby'"
+  puts "    'sudo chown $(whoami) /usr/local/mruby'"
+  puts ""
+  puts "And then re-run this script."
+  puts ""
+  raise "Permissions Error on '#{MRUBY_ROOT_DIR}'"
 end
 
-unless File.writable?(MRUBY_ROOT_DIR)
-  raise "Target Folder should be owned (writable) by user #{MRUBY_ROOT_DIR}"
+unless File.directory?(MRUBY_ROOT_DIR)
+  FileUtils.mkdir_p(MRUBY_ROOT_DIR)
 end
 
 `cd #{MRUBY_ROOT_DIR} && curl -LO #{MRUBY_GZ_URL}`
