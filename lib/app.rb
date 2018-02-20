@@ -25,7 +25,7 @@ class App
   end
 
   def self.version
-    "0.0.2b"
+    "0.0.3"
   end
 
   def self.default_action
@@ -42,12 +42,12 @@ class App
   end
 
   def self.invoke(argv = [])
-    puts "DEBUG | invoke! | ARGV : #{argv.inspect}"
+    # puts "DEBUG | invoke | ARGV : #{argv.inspect}"
     # Get the first item, the name of the band being simulated
     # NOTE: safe navigation operator ('&.') supported in Ruby 2.3+ & mRuby 1.3+
-    artist_name = argv.reject { |g| g =~ /^-/ }&.first || "The Foo Fighters"
+    artist_name = argv.reject { |g| g[0] == '-' }&.first || 'The Foo Fighters'
 
-    performer = RockBand.new(name: artist_name)
+    performer = RockBand.new(artist_name)
     itinerary = %w[Santiago Sydney Niigata Golden\ City Hamburg Quebec Chicago]
 
     if argv.include?("--play") || argv.include?("-p")
@@ -56,7 +56,7 @@ class App
 
     elsif argv.include?("--tour") || argv.include?("-t")
 
-      tour = WorldTour.new(shows: itinerary, headliner: performer)
+      tour = WorldTour.new(itinerary, performer)
       tour.perform
     else
       default_action

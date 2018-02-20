@@ -16,6 +16,7 @@ class WorldTour
     puts ""
     puts "Much Excite. Very w0w! #{headliner.name} are going on a World Tour!!!"
     puts ""
+    sleep 5
     shows.each do |show|
       travel(show)
       @toured = headliner.perform(show)

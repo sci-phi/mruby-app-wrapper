@@ -52,7 +52,9 @@ def clean_args(argv)
   # HACK: drop the first element from ARGV if command-like or script-like
   return nil if argv.nil? || argv.empty?
   return argv[1..-1] if argv[0] == App.command
-  return argv[1..-1] if argv[0][-3..-1] == '.rb' # (m)ruby app.rb
+  return argv[1..-1] if File.basename(argv[0]) == App.command
+  return argv[1..-1] if argv[0][-3..-1] == '.rb' # (m)ruby script.rb
+  return argv[1..-1] if File.basename(argv[0]) == "mruby-app" # (DEFAUlT)
   argv
 end
 
