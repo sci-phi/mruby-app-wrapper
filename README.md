@@ -2,6 +2,10 @@
 
 Developer Tool for Wrapping mruby logic in a binary executable.
 
+###
+
+ALPHA : Not suitable for general use. You probably want to consider using [mruby-cli](http://mruby-cli.org) instead.
+
 ## Why mruby?
 
 By compiling code written for mruby to bytecode, and embedding the tiny mruby interpreter into a C executable, you can effectively use Ruby to solve problems in spaces you might not otherwise be able to address.
