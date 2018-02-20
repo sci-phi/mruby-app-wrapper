@@ -2,8 +2,6 @@
 
 Developer Tool for Wrapping mruby logic in a binary executable.
 
-#### Work-in-Progress
-
 ## Why mruby?
 
 By compiling code written for mruby to bytecode, and embedding the tiny mruby interpreter into a C executable, you can effectively use Ruby to solve problems in spaces you might not otherwise be able to address.
@@ -12,7 +10,41 @@ By compiling code written for mruby to bytecode, and embedding the tiny mruby in
 
 This toolchain is primarily intended to be used via Docker images.
 
-*TODO: Expand Instructions*
+#### Building the Docker Image
+
+In the terminal, cd to this source directory and run the terminal command to build the custom :
+
+``$ docker build -t mruby-app-wrapper .``
+
+This will pull the base image ("sciphi/mruby-base") and apply the customizations in the template file "*custom_build_config.rb*" in a new docker image "*mruby-app-wrapper*"
+
+## Installed Versions
+
+  Ubuntu : 17.10
+  Ruby (CRuby/YARV) : 2.3.3p222
+  mruby (Rite) : 1.3.0 (2017-07-04)
+
+
+## Working with mruby in the docker shell
+
+Run the docker image you built :
+
+``$ docker run -tiP --rm -v $(pwd):/Code/project -w /Code/project mruby-app-wrapper shell``
+
+This docker shell is the work context for building the linux executable. Because the above command mounts the working directory on your host machine as the working directory in the running docker container, you can edit files in the host  environment and use them immediately in the docker shell.
+
+## Explore mruby via mirb REPL
+
+    root@0a228058f090:/Code/project# mirb
+    mirb - Embeddable Interactive Ruby Shell
+
+    > 2 + 2
+
+    => 4
+
+## Run mruby script (Traditional CRuby usage)
+
+    root@0a228058f090:/Code/project# mruby demo_mruby.rb
 
 ### Mac OS X Setup
 
